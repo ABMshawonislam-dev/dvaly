@@ -3,7 +3,7 @@ import React,{useState,useEffect,useReducer} from 'react';
 import axios from 'axios'
 import {Link } from "react-router-dom";
 import {Container,Row,Col,Card, Button,Spinner} from 'react-bootstrap'
-
+import Rating from './Rating';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -56,6 +56,8 @@ const ProductPage = () => {
                     <Link to={`/products/${item.slug}`}>{item.name}</Link>
                 </Card.Title>
                 <Card.Text>
+                
+                <Rating rating={item.rating} numberofrating={item.numberofrating}/>
                  {item.description}
                 </Card.Text>
                 <Card.Text>
