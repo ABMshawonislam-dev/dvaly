@@ -1,9 +1,9 @@
 import React,{useState,useEffect,useReducer} from 'react';
-// import data from '../data'
 import axios from 'axios'
 import {Link } from "react-router-dom";
 import {Container,Row,Col,Card, Button,Spinner} from 'react-bootstrap'
 import Rating from './Rating';
+import { Helmet } from 'react-helmet-async';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -32,7 +32,7 @@ const ProductPage = () => {
       let product = await axios.get("/products")
       dispatch({type:'FETCH_SUCCESS',payload:product.data})
     }catch(err){
-      dispatch({type:'FETCH_SUCCESS',payload:err.message})
+      dispatch({type:'FETCH_FAILS',payload:err.message})
     }
     
   },[])
@@ -40,7 +40,9 @@ const ProductPage = () => {
   return (
       <>
          <Container>
-         
+         <Helmet>
+           <title>Product Page</title>
+         </Helmet>
         <Row>
           {loading?
             <div className='loading'>

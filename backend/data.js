@@ -6,7 +6,8 @@ let data = [
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "120",
         rating: "5",
-        numberofrating: "120"
+        numberofrating: "120",
+        instock: "100"
     },
     {
         name: "Shirt2",
@@ -15,7 +16,8 @@ let data = [
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "110",
         rating: "4",
-        numberofrating: "140"
+        numberofrating: "140",
+        instock: "20"
     },
     {
         name: "Shirt3",
@@ -24,7 +26,8 @@ let data = [
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "130",
         rating: "3.5",
-        numberofrating: "10"
+        numberofrating: "10",
+        instock: "0"
     },
     {
         name: "Shirt4",
@@ -33,7 +36,8 @@ let data = [
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "220",
         rating: "2",
-        numberofrating: "120"
+        numberofrating: "120",
+        instock: "10"
     },
     {
         name: "Shirt5",
@@ -42,7 +46,8 @@ let data = [
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "220",
         rating: "5",
-        numberofrating: "120"
+        numberofrating: "120",
+        instock: "200"
     },
 ]
 
