@@ -1,5 +1,6 @@
 let data = [
     {
+        _id:1,
         name: "Shirt1",
         img: "/images/1.jpg",
         slug: 'shirt1',
@@ -10,6 +11,7 @@ let data = [
         instock: "100"
     },
     {
+        _id:2,
         name: "Shirt2",
         img: "/images/2.jpg",
         slug: 'shirt2',
@@ -20,6 +22,7 @@ let data = [
         instock: "20"
     },
     {
+        _id:3,
         name: "Shirt3",
         img: "/images/1.jpg",
         slug: 'shirt3',
@@ -30,6 +33,7 @@ let data = [
         instock: "0"
     },
     {
+        _id:4,
         name: "Shirt4",
         img: "/images/2.jpg",
         slug: 'shirt4',
@@ -40,6 +44,7 @@ let data = [
         instock: "10"
     },
     {
+        _id:5,
         name: "Shirt5",
         img: "/images/1.jpg",
         slug: 'shirt4',

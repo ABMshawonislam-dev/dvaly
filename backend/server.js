@@ -11,11 +11,19 @@ app.get('/products', function (req, res) {
 })
 
 app.get('/products/:slug', function (req, res) {
-  // console.log(req.params.slug)
-  // res.send(data)
 
   let product = data.find((item)=>{
     if(req.params.slug == item.slug){
+      return item
+    }
+  })
+
+  res.send(product)
+})
+
+app.get('/cartproduct/:id', function (req, res) {
+  let product = data.find((item)=>{
+    if(req.params.id == item._id){
       return item
     }
   })

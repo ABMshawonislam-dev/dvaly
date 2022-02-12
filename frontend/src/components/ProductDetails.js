@@ -1,4 +1,4 @@
-import React,{useState,useEffect,useReducer} from 'react';
+import React,{useState,useEffect,useReducer,useContext} from 'react';
 import axios from 'axios'
 import { useParams } from "react-router-dom";
 import {Container,Row,Col,Card, Button,Spinner,ListGroup,Badge,Alert} from 'react-bootstrap'
@@ -6,8 +6,8 @@ import { Helmet } from 'react-helmet-async';
 import Rating from './Rating';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 import InnerImageZoom from 'react-inner-image-zoom';
-import { useContext } from 'react';
 import {Store} from '../Store'
+import { useNavigate } from "react-router-dom";
 function reducer(state, action) {
   switch (action.type) {
     case 'FETCH_REQUEST':
@@ -24,6 +24,7 @@ function reducer(state, action) {
 
 
 const ProductDetails = () => {
+  let navigate = useNavigate();
     let params = useParams();
     
     const [{loading,error,product},dispatch] = useReducer(reducer,{
@@ -43,13 +44,27 @@ const ProductDetails = () => {
       
     },[params.slug])
     
+
     const {state, dispatch: ctxDispatch} = useContext(Store)
-    let handleAddToCart = ()=>{
+    const {cart} = state
+    let handleAddToCart = async()=>{
+      const exitingItem = cart.cartItems.find((item)=> item._id === product._id)
+      const quantity = exitingItem ? exitingItem.quantity + 1 : 1
+
+      const {data} = await axios.get(`/cartproduct/${product._id}`)
+      
+      if(data.instock < quantity){
+        window.alert(`${product.name} out of stock`)
+        return
+      }
       ctxDispatch({
         type: 'CART_ADD_ITEM',
-        payload: {...product,quantity:1}
+        payload: {...product,quantity}
       })
+      navigate(`/cartpage`);
+
     }
+
   return (
     // <div>{params.slug}</div>
     <Container>
