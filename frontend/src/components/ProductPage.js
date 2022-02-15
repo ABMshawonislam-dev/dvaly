@@ -1,9 +1,10 @@
-import React,{useState,useEffect,useReducer} from 'react';
+import React,{useState,useEffect,useReducer,useContext} from 'react';
 import axios from 'axios'
 import {Link } from "react-router-dom";
 import {Container,Row,Col,Card, Button,Spinner} from 'react-bootstrap'
 import Rating from './Rating';
 import { Helmet } from 'react-helmet-async';
+import {Store} from '../Store'
 
 function reducer(state, action) {
   switch (action.type) {
@@ -37,6 +38,43 @@ const ProductPage = () => {
     
   },[])
 
+  const {state, dispatch: ctxDispatch} = useContext(Store)
+    const {cart} = state
+    let handleAddToCart = async(product)=>{
+      console.log(product._id)
+      const exitingItem = cart.cartItems.find((item)=> item._id === product._id)
+      const quantity = exitingItem ? exitingItem.quantity + 1 : 1
+
+      const {data} = await axios.get(`/cartproduct/${product._id}`)
+      
+      if(data.instock < quantity){
+        window.alert(`${product.name} out of stock`)
+        return
+      }
+      ctxDispatch({
+        type: 'CART_ADD_ITEM',
+        payload: {...product,quantity}
+      })
+
+    }
+
+    
+    const {cart:{cartItems}} = state
+    let upadateCart = (item,quantity)=>{
+      console.log("asi")
+      ctxDispatch({
+            type:'CART_ADD_ITEM',
+            payload: {...item,quantity}
+        })
+    }
+
+    let handleRemoveItem = (item)=>{
+      ctxDispatch({
+            type:'CART_REMOVE_ITEM',
+            payload: item
+        })
+    }
+
   return (
       <>
          <Container>
@@ -67,7 +105,27 @@ const ProductPage = () => {
                 </Card.Text>
               </Card.Body>
               <Card.Body>
-                <Button  variant="primary" href="#">Add to cart</Button>
+                {cartItems.map(items=>(
+                    item._id == items._id 
+                      ?
+                      <>
+                      <Button onClick={()=>upadateCart(item,items.quantity+1)}  disabled={items.quantity == item.instock} variant="success">+</Button>
+                      <span>{items.quantity}</span>
+                      <Button onClick={()=>upadateCart(item,items.quantity-1)} disabled={items.quantity === 1} variant="success">-</Button>
+                      <Button className='ms-2' onClick={()=>handleRemoveItem(item)} variant="danger">Remove form Cart</Button>
+                      </>
+                      :
+                      ""
+                    
+
+                ))}
+              <br/>
+              {item.instock == 0 
+                ?
+                <Button variant="danger">Out Of Stock</Button>
+                :
+                <Button className='mt-3' onClick={()=>handleAddToCart(item)}  variant="primary">Add to cart</Button>
+              }
               </Card.Body>
             </Card>
             </Col>

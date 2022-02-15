@@ -2,10 +2,10 @@ import {useContext} from 'react'
 import {Store} from '../Store'
 import { Helmet } from 'react-helmet-async'
 import {Container,Row,Col,Alert,ListGroup,Button} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 const CartPage = () => {
-
+    let navigate = useNavigate();
     const {state,dispatch} = useContext(Store)
 
     const {cart:{cartItems}} = state
@@ -22,6 +22,10 @@ const CartPage = () => {
             type:'CART_REMOVE_ITEM',
             payload: item
         })
+    }
+
+    let handleCheckOut = () => {
+        navigate('/signin?redirect=/shipping')
     }
   return (
     <Container>
@@ -64,7 +68,7 @@ const CartPage = () => {
             <Col lg={4}>
                <h1> Total ({cartItems.reduce((accumulator,current)=> accumulator + current.quantity, 0)}) Products</h1>
                <h3>price: ${cartItems.reduce((accumulator,current)=> accumulator + current.price * current.quantity, 0)}</h3>
-               <Button className='w-100' variant="primary">Payment</Button>
+               <Button onClick={handleCheckOut} className='w-100' variant="primary">Payment</Button>
             </Col>
         </Row>
     </Container>

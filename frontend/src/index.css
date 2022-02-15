@@ -2,9 +2,33 @@ a{
   text-decoration: none;
 }
 
-.menu a{
+.menu .item{
   color: #fff;
   margin-left: 20px;
+  margin-top: 7px;
+}
+
+.menu .dropdown a{
+  color: #fff !important;
+  margin-left: 20px;
+}
+
+.menu .dropdown-menu a{
+  color: #000 !important;
+  margin-left: 0px;
+}
+
+.menu .badge {
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 6px;
+}
+
+.navbar-expand .navbar-nav .dropdown-menu{
+  width: 400px;
+  padding: 10px;
 }
 
 .loading{
@@ -16,4 +40,10 @@ a{
 
 .iiz{
   height: 500px;
+}
+
+.sidecart{
+  position: fixed;
+  top: 50%;
+  right: 0;
 }
