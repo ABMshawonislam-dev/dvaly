@@ -1,6 +1,16 @@
 import express from 'express'
 import data from './data.js'
+import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 const app = express()
+
+dotenv.config()
+
+mongoose.connect(process.env.MONGODB_URL).then(()=>{
+  console.log("MopngoDB connected")
+}).catch((err)=>{
+  console.log(err)
+})
 
 app.get('/', function (req, res) {
   res.send('Hello World')

@@ -8,6 +8,7 @@ import ProductPage from "./components/ProductPage";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import CartPage from "./components/CartPage";
+import Login from './components/Login';
 import { useContext } from "react";
 import {Store} from './Store'
 function App() {
@@ -119,6 +120,7 @@ function App() {
         <Route path="/products/:slug" element={<ProductDetails/>}></Route>
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/cartpage" element={<CartPage/>}></Route>
+        <Route path="/signin" element={<Login/>}></Route>
       </Routes>
     </BrowserRouter>
 
