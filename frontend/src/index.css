@@ -82,3 +82,21 @@ a{
   right: -50px;
   transform: translateY(-50%);
 }
+
+.banner{
+  position: relative;
+}
+
+.banner-img{
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.cat-container{
+  width: 400px;
+}
+
+.catproductshow{
+  margin-top: 500px;
+}

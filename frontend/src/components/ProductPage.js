@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useReducer,useContext} from 'react';
 import axios from 'axios'
 import {Link } from "react-router-dom";
-import {Container,Row,Col,Card, Button,Spinner,Modal,Badge} from 'react-bootstrap'
+import {Container,Row,Col,Card, Button,Spinner,Modal,Badge,Form} from 'react-bootstrap'
 import Rating from './Rating';
 import { Helmet } from 'react-helmet-async';
 import {Store} from '../Store'
@@ -22,6 +22,7 @@ function reducer(state, action) {
 
 const ProductPage = () => {
   const [lgShow, setLgShow] = useState(false);
+  const [searchmatch, setSearchmatch] = useState([]);
 
   const [{loading,error,product},dispatch] = useReducer(reducer,{
     loading: false,
@@ -93,6 +94,17 @@ const ProductPage = () => {
         })
     }
 
+    let matchArr = []
+    let handelSearch = (e) => {
+      product.map(item=>{
+        if(item.name.toLowerCase().includes(e.target.value)){
+          matchArr.push(item)
+        }
+
+      })
+      setSearchmatch(matchArr)
+    }
+
   return (
       <>
          <Container>
@@ -100,10 +112,65 @@ const ProductPage = () => {
            <title>Product Page</title>
          </Helmet>
         <Row>
+        <Form.Control onChange={handelSearch} type="email" placeholder="name@example.com" />
           {loading?
             <div className='loading'>
               <Spinner animation="border" />
             </div>
+          :
+          searchmatch > 0?
+          searchmatch.map(item=>(
+            <Col lg={3}>
+            <Card>
+              <Card.Img variant="top" src={item.img} />
+              <Card.Body>
+                <Card.Title>
+                    <Link to={`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
+                </Card.Title>
+                <Card.Text>
+                
+                <Rating rating={item.rating} numberofrating={item.numberofrating}/>
+                 {item.description}
+                </Card.Text>
+                <Card.Text>
+                 {item.price}$
+                </Card.Text>
+              </Card.Body>
+              <Card.Body>
+                {cartItems.map(items=>(
+                    item._id == items._id 
+                      ?
+                      <>
+                      <Button onClick={()=>upadateCart(item,items.quantity+1)}  disabled={items.quantity == item.instock} variant="success">+</Button>
+                      <span>{items.quantity}</span>
+                      <Button onClick={()=>upadateCart(item,items.quantity-1)} disabled={items.quantity === 1} variant="success">-</Button>
+                      <Button className='ms-2' onClick={()=>handleRemoveItem(item)} variant="danger">Remove form Cart</Button>
+                      </>
+                      :
+                      ""
+                    
+
+                ))}
+              <br/>
+              {item.instock == 0 
+                ?
+                <>
+                  <Button variant="danger">Out Of Stock</Button>
+                <Button className='mt-3' onClick={()=>handleDetails(item.slug)}>Details</Button>
+                <Button className='mt-3' onClick={()=>handleAddToWishlist(item)}>Wishlist</Button>
+                  
+                </>
+                :
+               <>
+                 <Button className='mt-3 me-2' onClick={()=>handleAddToCart(item)}  variant="primary">Add to cart</Button>
+                <Button className='mt-3' onClick={()=>handleDetails(item.slug)}>Details</Button>
+                <Button className='mt-3' onClick={()=>handleAddToWishlist(item)}>Wishlist</Button>
+               </>
+              }
+              </Card.Body>
+            </Card>
+            </Col>
+          ))
           :
           product.map(item=>(
             <Col lg={3}>

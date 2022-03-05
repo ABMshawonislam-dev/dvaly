@@ -40,7 +40,7 @@ let data = [
         rating: "3.5",
         numberofrating: "10",
         instock: "0",
-        category: "one",
+        category: "two",
         cupon:"",
         discount:"",
         totalSale: 100
@@ -55,7 +55,7 @@ let data = [
         rating: "2",
         numberofrating: "120",
         instock: "10",
-        category: "one",
+        category: "two",
         totalSale: 70
     },
     {
@@ -68,7 +68,7 @@ let data = [
         rating: "5",
         numberofrating: "120",
         instock: "200",
-        category: "one",
+        category: "three",
         totalSale: 50
     },
     {
@@ -81,7 +81,7 @@ let data = [
         rating: "5",
         numberofrating: "120",
         instock: "200",
-        category: "one",
+        category: "three",
         totalSale: 30
     },
     {
@@ -94,7 +94,7 @@ let data = [
         rating: "5",
         numberofrating: "120",
         instock: "200",
-        category: "one",
+        category: "four",
         totalSale: 30
     },
     {
@@ -107,7 +107,7 @@ let data = [
         rating: "5",
         numberofrating: "120",
         instock: "200",
-        category: "one",
+        category: "four",
         totalSale: 30
     },
 ]
