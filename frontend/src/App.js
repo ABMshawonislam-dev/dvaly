@@ -11,6 +11,8 @@ import CartPage from "./components/CartPage";
 import Login from './components/Login';
 import { useContext } from "react";
 import {Store} from './Store'
+import WishList from './components/WishList';
+import Compare from './components/Compare';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -19,9 +21,10 @@ function App() {
   const handleShow = () => setShow(true);
 
 
-  const {state,dispatch} = useContext(Store)
+  const {state,dispatch,state2,dispatch2} = useContext(Store)
 
   const {cart:{cartItems}} = state
+  const {wishlist:{wishlistItems}} = state2
 
   let upadateCart = (item,quantity)=>{
       dispatch({
@@ -33,6 +36,13 @@ function App() {
   let handleRemoveItem = (item)=>{
       dispatch({
           type:'CART_REMOVE_ITEM',
+          payload: item
+      })
+  }
+
+  let handleRemoveWItem = (item)=>{
+      dispatch2({
+          type:'WISHLIST_REMOVE_ITEM',
           payload: item
       })
   }
@@ -51,6 +61,7 @@ function App() {
         <Nav className="ms-auto menu">
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/products">Products</Link>
+          <Link className="item" to="/compare">Compare Products</Link>
 
           <NavDropdown title="Cart" id="basic-nav-dropdown">
         
@@ -82,6 +93,37 @@ function App() {
               {state.cart.cartItems.length}
             </Badge>
           )}
+
+
+          {/* ======================================== */}
+          <NavDropdown title="Wishlist" id="basic-nav-dropdown">
+        
+        {wishlistItems.map((item)=>(
+          <>
+             <img className="me-2 mt-2" width="50" src={item.img} />
+             <Link className="me-2 mt-2" to={`/products/${item.slug}`}>{item.name}</Link>
+             
+                              <Button className="me-2 mt-2" onClick={()=>handleRemoveWItem(item)} variant="danger">Delete</Button>
+                              <NavDropdown.Divider />
+                              <br/>
+          </>
+      ))}
+
+        
+
+        <div className="text-center">
+          <Button className="w-100" variant="info">
+            <Link to="/wishlist">Go to Wishlist</Link>
+          </Button>
+        </div>
+  </NavDropdown>
+
+  
+  {state2.wishlist.wishlistItems.length > 0 && (
+      <Badge pill bg="danger">
+        {state2.wishlist.wishlistItems.length}
+      </Badge>
+    )}
         </Nav>
         </Container>
       </Navbar>
@@ -121,6 +163,8 @@ function App() {
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/cartpage" element={<CartPage/>}></Route>
         <Route path="/signin" element={<Login/>}></Route>
+        <Route path="/wishlist" element={<WishList/>}></Route>
+        <Route path="/compare" element={<Compare/>}></Route>
       </Routes>
     </BrowserRouter>
 

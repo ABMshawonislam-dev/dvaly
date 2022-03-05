@@ -8,7 +8,12 @@ let data = [
         price: "120",
         rating: "5",
         numberofrating: "120",
-        instock: "100"
+        instock: "100",
+        category: "one",
+        cupon:"kire",
+        discount: 70,
+        discountlimit: 50,
+        totalSale: 10
     },
     {
         _id:2,
@@ -19,7 +24,11 @@ let data = [
         price: "110",
         rating: "4",
         numberofrating: "140",
-        instock: "20"
+        instock: "20",
+        category: "one",
+        cupon:"tintinatin",
+        discount: 50,
+        totalSale: 5
     },
     {
         _id:3,
@@ -30,7 +39,11 @@ let data = [
         price: "130",
         rating: "3.5",
         numberofrating: "10",
-        instock: "0"
+        instock: "0",
+        category: "one",
+        cupon:"",
+        discount:"",
+        totalSale: 100
     },
     {
         _id:4,
@@ -41,18 +54,61 @@ let data = [
         price: "220",
         rating: "2",
         numberofrating: "120",
-        instock: "10"
+        instock: "10",
+        category: "one",
+        totalSale: 70
     },
     {
         _id:5,
         name: "Shirt5",
         img: "/images/1.jpg",
-        slug: 'shirt4',
+        slug: 'shirt5',
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "220",
         rating: "5",
         numberofrating: "120",
-        instock: "200"
+        instock: "200",
+        category: "one",
+        totalSale: 50
+    },
+    {
+        _id:6,
+        name: "Shirt6",
+        img: "/images/2.jpg",
+        slug: 'shirt6',
+        description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
+        price: "220",
+        rating: "5",
+        numberofrating: "120",
+        instock: "200",
+        category: "one",
+        totalSale: 30
+    },
+    {
+        _id:7,
+        name: "Shirt7",
+        img: "/images/1.jpg",
+        slug: 'shirt6',
+        description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
+        price: "220",
+        rating: "5",
+        numberofrating: "120",
+        instock: "200",
+        category: "one",
+        totalSale: 30
+    },
+    {
+        _id:8,
+        name: "Shirt8",
+        img: "/images/2.jpg",
+        slug: 'shirt6',
+        description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
+        price: "220",
+        rating: "5",
+        numberofrating: "120",
+        instock: "200",
+        category: "one",
+        totalSale: 30
     },
 ]
 
