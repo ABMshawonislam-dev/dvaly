@@ -1,6 +1,6 @@
 let data = [
     {
-        _id:1,
+        // _id:1,
         name: "Shirt1",
         img: "/images/1.jpg",
         slug: 'shirt1',
@@ -16,7 +16,7 @@ let data = [
         totalSale: 10
     },
     {
-        _id:2,
+        // _id:2,
         name: "Shirt2",
         img: "/images/2.jpg",
         slug: 'shirt2',
@@ -31,7 +31,7 @@ let data = [
         totalSale: 5
     },
     {
-        _id:3,
+        // _id:3,
         name: "Shirt3",
         img: "/images/1.jpg",
         slug: 'shirt3',
@@ -46,7 +46,7 @@ let data = [
         totalSale: 100
     },
     {
-        _id:4,
+        // _id:4,
         name: "Shirt4",
         img: "/images/2.jpg",
         slug: 'shirt4',
@@ -59,7 +59,7 @@ let data = [
         totalSale: 70
     },
     {
-        _id:5,
+        // _id:5,
         name: "Shirt5",
         img: "/images/1.jpg",
         slug: 'shirt5',
@@ -72,7 +72,7 @@ let data = [
         totalSale: 50
     },
     {
-        _id:6,
+        // _id:6,
         name: "Shirt6",
         img: "/images/2.jpg",
         slug: 'shirt6',
@@ -85,10 +85,10 @@ let data = [
         totalSale: 30
     },
     {
-        _id:7,
+        // _id:7,
         name: "Shirt7",
         img: "/images/1.jpg",
-        slug: 'shirt6',
+        slug: 'shirt7',
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "220",
         rating: "5",
@@ -98,10 +98,10 @@ let data = [
         totalSale: 30
     },
     {
-        _id:8,
+        // _id:8,
         name: "Shirt8",
         img: "/images/2.jpg",
-        slug: 'shirt6',
+        slug: 'shirt8',
         description:"Some quick example text to build on the card title and make up the bulk of the cards content.",
         price: "220",
         rating: "5",
