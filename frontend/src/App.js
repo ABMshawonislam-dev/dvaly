@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 import { BrowserRouter,Routes,Route,Link } from "react-router-dom";
 import {Navbar,Container,Nav,Badge,NavDropdown,ListGroup,Button,Offcanvas} from 'react-bootstrap'
@@ -21,10 +21,16 @@ function App() {
   const handleShow = () => setShow(true);
 
 
-  const {state,dispatch,state2,dispatch2} = useContext(Store)
+  const {state,dispatch,state2,dispatch2,state3,dispatch3} = useContext(Store)
 
   const {cart:{cartItems}} = state
   const {wishlist:{wishlistItems}} = state2
+  
+
+  const {userInfo} = state3
+
+  console.log(state3)
+ 
 
   let upadateCart = (item,quantity)=>{
       dispatch({
@@ -47,6 +53,11 @@ function App() {
       })
   }
 
+  let handleLogout = () => {
+    dispatch3({type: "USER_LOGOUT"})
+    localStorage.removeItem("userInfo")
+  }
+
   return (
     <>
 
@@ -62,6 +73,7 @@ function App() {
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/products">Products</Link>
           <Link className="item" to="/compare">Compare Products</Link>
+          
 
           <NavDropdown title="Cart" id="basic-nav-dropdown">
         
@@ -86,6 +98,7 @@ function App() {
                 </Button>
               </div>
         </NavDropdown>
+
 
         
         {state.cart.cartItems.length > 0 && (
@@ -124,6 +137,20 @@ function App() {
         {state2.wishlist.wishlistItems.length}
       </Badge>
     )}
+
+     
+      {userInfo ?
+           <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
+           
+          </NavDropdown>
+      : 
+       <Link className="item" to="/signin">Signin</Link>
+      }
         </Nav>
         </Container>
       </Navbar>
