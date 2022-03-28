@@ -78,7 +78,6 @@ function userreducer (state,action){
     
     switch (action.type){
         case 'USER_SIGNIN':
-            console.log("ami dispatch3 store theke asasdeci")
            return {...state,userInfo: action.payload}
         case 'USER_LOGOUT':
             return {...state,userInfo: null}      
@@ -90,9 +89,9 @@ function userreducer (state,action){
 
 
 function StoreProvider(props){
+    const [state3,dispatch3] = useReducer(userreducer,userInitialState)
     const [state,dispatch] = useReducer(reducer,initialState)
     const [state2,dispatch2] = useReducer(reducer2,initialState2)
-    const [state3,dispatch3] = useReducer(userreducer,userInitialState)
 
 
     const value = {state,dispatch,state2,dispatch2,state3,dispatch3}

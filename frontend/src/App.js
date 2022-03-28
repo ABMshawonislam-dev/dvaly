@@ -29,7 +29,7 @@ function App() {
 
   const {userInfo} = state3
 
-  console.log(state3)
+  console.log(userInfo)
  
 
   let upadateCart = (item,quantity)=>{
@@ -73,6 +73,19 @@ function App() {
           <Link className="item" to="/">Home</Link>
           <Link className="item" to="/products">Products</Link>
           <Link className="item" to="/compare">Compare Products</Link>
+           
+      {userInfo ?
+           <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
+           
+          </NavDropdown>
+      : 
+       <Link className="item" to="/signin">Signin</Link>
+      }
           
 
           <NavDropdown title="Cart" id="basic-nav-dropdown">
@@ -138,19 +151,7 @@ function App() {
       </Badge>
     )}
 
-     
-      {userInfo ?
-           <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
-           
-          </NavDropdown>
-      : 
-       <Link className="item" to="/signin">Signin</Link>
-      }
+    
         </Nav>
         </Container>
       </Navbar>
