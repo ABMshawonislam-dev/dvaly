@@ -13,6 +13,8 @@ import { useContext } from "react";
 import {Store} from './Store'
 import WishList from './components/WishList';
 import Compare from './components/Compare';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -68,6 +70,7 @@ function App() {
       
       <Navbar bg="dark" variant="dark">
         <Container>
+        <ToastContainer position='bottom-center' limit={1} />
         <Navbar.Brand href="#home">Dvaly</Navbar.Brand>
         <Nav className="ms-auto menu">
           <Link className="item" to="/">Home</Link>

@@ -1,8 +1,9 @@
-import React,{useContext, useState} from 'react'
+import React,{useContext, useEffect, useState} from 'react'
 import { Container,Form,Button,Alert } from 'react-bootstrap'
 import { Link,useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {Store} from '../Store'
+import {toast } from 'react-toastify';
 
 const Login = () => {
     const navigate = useNavigate()
@@ -15,6 +16,8 @@ const Login = () => {
 
     const {state3, dispatch3} = useContext(Store)
 
+    const {userInfo} = state3
+
     let handleSubmit = async (e)=>{
         e.preventDefault()
         try{
@@ -22,13 +25,19 @@ const Login = () => {
                 email,
                 password
             })
-            dispatch3({type: 'USER_SINGIN',payload:data })
+            dispatch3({type: 'USER_SIGNIN',payload:data })
             localStorage.setItem('userInfo',JSON.stringify(data))
             navigate(redirect || "/")
         }catch(err){
-            alert("Invalid email or password")
+            toast.error("Invalid email or password")
         }
     }
+
+    useEffect(()=>{
+        if(userInfo){
+            navigate(redirect)
+        }
+    },[])
   return (
     <Container className='w-25 border mt-5 p-3'>
          <Alert variant="primary" className='text-center '>
