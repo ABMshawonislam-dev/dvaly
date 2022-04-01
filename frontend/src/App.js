@@ -9,12 +9,14 @@ import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import CartPage from "./components/CartPage";
 import Login from './components/Login';
+import Signup from './components/Signup';
 import { useContext } from "react";
 import {Store} from './Store'
 import WishList from './components/WishList';
 import Compare from './components/Compare';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Shipping from './components/Shipping';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -194,8 +196,10 @@ function App() {
         <Route path="/cart" element={<Cart/>}></Route>
         <Route path="/cartpage" element={<CartPage/>}></Route>
         <Route path="/signin" element={<Login/>}></Route>
+        <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/wishlist" element={<WishList/>}></Route>
         <Route path="/compare" element={<Compare/>}></Route>
+        <Route path="/shipping" element={<Shipping/>}></Route>
       </Routes>
     </BrowserRouter>
 

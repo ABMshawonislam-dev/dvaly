@@ -100,3 +100,12 @@ a{
 .catproductshow{
   margin-top: 500px;
 }
+.step h3{
+  text-align: center;
+  padding: 10px 0;
+}
+
+.step .stepactive{
+  background: green;
+  color: #fff;
+}
