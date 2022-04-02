@@ -17,6 +17,7 @@ import Compare from './components/Compare';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Shipping from './components/Shipping';
+import Payment from './components/Payment';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -199,6 +200,7 @@ function App() {
         <Route path="/signup" element={<Signup/>}></Route>
         <Route path="/wishlist" element={<WishList/>}></Route>
         <Route path="/compare" element={<Compare/>}></Route>
+        <Route path="/payment" element={<Payment/>}></Route>
         <Route path="/shipping" element={<Shipping/>}></Route>
       </Routes>
     </BrowserRouter>
