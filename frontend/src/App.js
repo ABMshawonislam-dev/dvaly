@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react'
 
 import { BrowserRouter,Routes,Route,Link } from "react-router-dom";
-import {Navbar,Container,Nav,Badge,NavDropdown,ListGroup,Button,Offcanvas} from 'react-bootstrap'
+import {Navbar,Container,Nav,Badge,NavDropdown,ListGroup,Button,Offcanvas, Placeholder} from 'react-bootstrap'
 
 import HomePage from "./components/HomePage";
 import ProductPage from "./components/ProductPage";
@@ -18,6 +18,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Shipping from './components/Shipping';
 import Payment from './components/Payment';
+import Placeorder from './components/Placeorder';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -202,6 +203,7 @@ function App() {
         <Route path="/compare" element={<Compare/>}></Route>
         <Route path="/payment" element={<Payment/>}></Route>
         <Route path="/shipping" element={<Shipping/>}></Route>
+        <Route path="/placeorder" element={<Placeorder/>}></Route>
       </Routes>
     </BrowserRouter>
 
