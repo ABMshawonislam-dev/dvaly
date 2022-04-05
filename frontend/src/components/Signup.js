@@ -75,7 +75,7 @@ const Signup = () => {
          </Form>
         <br/>
         <Form.Text id="passwordHelpBlock" muted>
-            Already Have An Account? <Link to={`/signip?redirect=${redirect}`}>Login</Link>
+            Already Have An Account? <Link to={`/signin?redirect=${redirect}`}>Login</Link>
         </Form.Text>
     </Container>
   )

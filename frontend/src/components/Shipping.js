@@ -2,7 +2,7 @@ import React,{useState,useContext,useEffect} from 'react'
 import {Helmet} from 'react-helmet-async'
 import {Form,Button,Container,Alert} from 'react-bootstrap'
 import { Store } from '../Store'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate,Link } from 'react-router-dom'
 import CheckoutStep from './CheckoutStep'
 
 const Shipping = () => {
@@ -53,13 +53,17 @@ const Shipping = () => {
             <title>Shipping Address</title>
         </Helmet>
         <CheckoutStep step1="true" step2="true"/>
+        
         <Container className='w-25 border mt-5 p-3'>
+            
+            
         <Alert variant="primary" className='text-center '>
             <h1>Shipping Address</h1>
         </Alert>
    
 
             <Form onSubmit={handleSubmit}>
+            
                     <Form.Group className="mb-3">
                         <Form.Label>Full Name</Form.Label>
                         <Form.Control value={fullname} onChange={(e)=>setFullname(e.target.value)} type="text" placeholder="Write Your Full Name" />

@@ -1,20 +1,30 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {Container,Alert,Form, Button} from 'react-bootstrap'
 import CheckoutStep from './CheckoutStep'
+import { useNavigate,Link } from 'react-router-dom'
+import  {Store} from '../Store'
 
 const Payment = () => {
-    let [paymentMethod,setPaymentmethod] = useState(false)
+    let {state5,dispatch5} = useContext(Store)
+    let navigate = useNavigate()
+    let [paymentMethod,setPaymentmethod] = useState(state5.paymentMethod?state5.paymentMethod:"")
+
+    // console.log(state5.paymentMethod)
+
 
     let handleSubmit = (e)=>{
         e.preventDefault()
+        dispatch5({type:'PAYMENT_METHOD',payload: paymentMethod})
+        localStorage.setItem('paymentMethod',JSON.stringify(paymentMethod))
+        navigate('/placeorder')
     }
 
   return (
    <>
          <CheckoutStep step1="true" step2="true" step3="true"/>
     <Container  className='w-25 border mt-5 p-3'>
-         
-         <Alert variant="primary" className='text-center '>
+    <Link to="/shipping" className='back w-100'> <Button className='w-100'> Go To Shipping Page</Button></Link>
+         <Alert  variant="primary" className='text-center '>
             <h5>Choose Payment Method</h5>
         </Alert>
 
