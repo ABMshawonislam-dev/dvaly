@@ -1,5 +1,5 @@
-import React, {useState,useContext } from 'react'
-import { Container,Row,Col,Card,Button,Modal,Form } from 'react-bootstrap'
+import React, {useState,useContext, useEffect } from 'react'
+import { Container,Row,Col,Card,Button,Modal,Form,ListGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import CheckoutStep from './CheckoutStep'
 import { Helmet } from 'react-helmet-async'
@@ -8,13 +8,15 @@ import {Store} from '../Store'
 const Placeorder = () => {
  
 
-    let {state4,dispatch4,state5} = useContext(Store)
+    let {state,state4,dispatch4,state5} = useContext(Store)
+    console.log(state.cart.cartItems)
   const [fullname,setFullname] = useState(state4.shippingaddress.fullname || "")
   const [address,setAddress] = useState(state4.shippingaddress.address || "")
   const [city,setCity] = useState(state4.shippingaddress.city || "")
   const [postcode,setPostcode] = useState(state4.shippingaddress.postcode || "")
   const [country,setCountry] = useState(state4.shippingaddress.country || "")
-    console.log(state5)
+  const [total,setTotal] = useState("")
+
 
     const [show, setShow] = useState(false);
 
@@ -46,6 +48,11 @@ const Placeorder = () => {
 
     }
 
+    useEffect(()=>{
+        let total = state.cart.cartItems.reduce((accumulator,current)=> accumulator + current.price * current.quantity, 0)
+        setTotal(total)
+    },[state.cart.cartItems])
+
 
   return (
     <>
@@ -54,10 +61,10 @@ const Placeorder = () => {
             <title>Place Order</title>
         </Helmet>
     <Container className='mt-5'>
-
+    <h1>Preview Order</h1>
         <Row>
             <Col lg={8}>
-                <h1>Preview Order</h1>
+                
 
                 <Card className='mt-5'>
                     <Card.Body>
@@ -86,9 +93,49 @@ const Placeorder = () => {
                         {/* <Button onClick={handleShow} className='ms-5' variant="primary">Edit</Button> */}
                     </Card.Body>
                 </Card>
+
+                <Card className='mt-5'>
+                    <Card.Body>
+                        <Card.Title>Oder Items</Card.Title>
+                        <hr/>
+                        <Card.Text>
+                            <b>Total Item:</b>  {state.cart.cartItems.length} <br/>
+                            <ListGroup className='mt-3'>
+                                {state.cart.cartItems.map(item=>(
+
+                                <ListGroup.Item>
+                                    <img className='me-4' src={item.img} style={{width:"50px"}}/>
+                                    {item.name}
+                                    <b className='ms-4 me-4'>Quantity:</b>{item.quantity}
+                                </ListGroup.Item>
+                                ))}
+                               
+                            </ListGroup>
+                        </Card.Text>
+                        <Link to="/cartpage" >Edit</Link>
+                        {/* <Button onClick={handleShow} className='ms-5' variant="primary">Edit</Button> */}
+                    </Card.Body>
+                </Card>
             </Col>
             <Col lg={4}>
-            information2
+            
+            <Card className='mt-5'>
+                    <Card.Body>
+                        <Card.Title>Payment Summary</Card.Title>
+                        <hr/>
+                        <Card.Text>
+                            <ListGroup className='mt-3'>
+                            <ListGroup.Item><b>Product Price:${total}</b></ListGroup.Item>
+                            <ListGroup.Item><b>Delivery Charge: $0 </b></ListGroup.Item>
+                            <ListGroup.Item><b>Tax: ${total<500?0:(total*5)/100}</b></ListGroup.Item>
+                            <ListGroup.Item><b>Total Price:{total+(total<500?0:(total*5)/100)+0}</b></ListGroup.Item>
+                               
+                               
+                            </ListGroup>
+                        </Card.Text>
+                        <Button variant="primary">place Order</Button>
+                    </Card.Body>
+                    </Card>
             </Col>
         </Row>
     </Container>
