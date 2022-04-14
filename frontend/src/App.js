@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Shipping from './components/Shipping';
 import Payment from './components/Payment';
 import Placeorder from './components/Placeorder';
+import Order from './components/Order';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -204,6 +205,7 @@ function App() {
         <Route path="/payment" element={<Payment/>}></Route>
         <Route path="/shipping" element={<Shipping/>}></Route>
         <Route path="/placeorder" element={<Placeorder/>}></Route>
+        <Route path="/orders/:id" element={<Order/>}></Route>
       </Routes>
     </BrowserRouter>
 

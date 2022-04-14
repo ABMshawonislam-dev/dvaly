@@ -1,15 +1,34 @@
-import React, {useState,useContext, useEffect } from 'react'
-import { Container,Row,Col,Card,Button,Modal,Form,ListGroup } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+import React, {useState,useContext, useEffect, useReducer } from 'react'
+import { Container,Row,Col,Card,Button,Modal,Form,ListGroup, Toast } from 'react-bootstrap'
+import { Link,useNavigate } from 'react-router-dom'
 import CheckoutStep from './CheckoutStep'
 import { Helmet } from 'react-helmet-async'
 import {Store} from '../Store'
+import {toast } from 'react-toastify';
+import axios from 'axios'
+
+const reducer = (state,action)=>{
+    switch(action.type){
+        case 'CREATE_REQUEST':
+            return {...state,loading:true}
+        case 'CREATE_SUCCESS':
+            return {...state,loading:false}
+        case 'CREATE_FAIL':
+            return {...state,loading: false}
+    }
+}
 
 const Placeorder = () => {
- 
+    const navigate = useNavigate()
 
-    let {state,state4,dispatch4,state5} = useContext(Store)
+    const [{loading},dispatch] = useReducer(reducer,{
+        loading: false,
+    })
+
+    let {state,dispatch:ctxdispatch,state3,state4,dispatch4,state5} = useContext(Store)
     console.log(state.cart.cartItems)
+    const {userInfo} = state3
+    console.log(userInfo)
   const [fullname,setFullname] = useState(state4.shippingaddress.fullname || "")
   const [address,setAddress] = useState(state4.shippingaddress.address || "")
   const [city,setCity] = useState(state4.shippingaddress.city || "")
@@ -46,6 +65,37 @@ const Placeorder = () => {
         setShow(false)
 
 
+    }
+
+
+    let handlePlaceOrder = async ()=>{
+        	try{
+
+                const {data} = await axios.post('/api/orders',
+                    {
+                        orderItems: state.cart.cartItems,
+                        shippingaddress: state4.shippingaddress,
+                        paymentMethod: state5.paymentMethod,
+                        productPrice: total,
+                        shippingPrice: 0,
+                        taxPrice: total<500?0:(total*5)/100,
+                        totalPrice: total+(total<500?0:(total*5)/100)+0
+                    },
+                    {
+                        headers:{
+                            authorization: `Bearer ${userInfo.token}`
+                        }
+                    }
+                )
+
+                ctxdispatch({type: 'CLEAR_CART'})
+                dispatch({type: 'CREATE_SUCCESS'})
+                localStorage.removeItem('cartItems')
+                navigate(`/orders/${data.order._id}`)
+            }catch(err){
+                dispatch({type: 'CREATE_FAIL'})
+                toast.error(err)
+            }
     }
 
     useEffect(()=>{
@@ -133,7 +183,7 @@ const Placeorder = () => {
                                
                             </ListGroup>
                         </Card.Text>
-                        <Button variant="primary">place Order</Button>
+                        <Button variant="primary" onClick={handlePlaceOrder}>place Order</Button>
                     </Card.Body>
                     </Card>
             </Col>
