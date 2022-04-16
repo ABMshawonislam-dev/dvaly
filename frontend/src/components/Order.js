@@ -1,6 +1,7 @@
 import axios from 'axios'
 import React, { useContext, useEffect, useReducer } from 'react'
 import {  PayPalButtons,usePayPalScriptReducer } from "@paypal/react-paypal-js";
+import StripeCheckout from 'react-stripe-checkout';
 import { useNavigate, useParams,Link} from 'react-router-dom'
 import {Alert,Container,Card,Button,Col,Row,ListGroup} from 'react-bootstrap'
 import {Store} from '../Store'
@@ -138,6 +139,27 @@ function onError(err){
 
     },[order,orderID,navigate,userInfo,paypalDispatch,successPay])
 
+
+    let handleToken = async (token)=>{
+
+        try{
+            dispatch({type:'FETCH_REQUEST'})
+            const {data} = await axios.get(`/api/orders/${orderID}/payment`,{
+                headers: {authorization: `Bearer ${userInfo.token}`}
+            })
+            console.log("alkdjalkdj",data)
+
+            dispatch({type: 'FETCH_SUCCESS',payload:data})
+            
+            
+        }catch (err){
+            dispatch({type: 'FETCH_FAIL',})
+
+
+        }
+
+    }
+
   return (
         loading
             ?
@@ -226,7 +248,20 @@ function onError(err){
                                         <h1>Loading.....</h1>
                                     :
                             <Col>
+                            {order.paymentMethod == "Paypal" &&
+                            
                                 <PayPalButtons createOrder={createOrder} onApprove={onApprove} onError={onError}></PayPalButtons>
+                            }
+                            {order.paymentMethod == "Strip" &&
+                            
+                                <StripeCheckout
+                                        token={handleToken}
+                                        stripeKey="pk_test_51JGIdGFrmcA91sRK6HorosQIM1QbW4wtYMecZuzNrjwQhzBHCPzi688nWpoFAhhAxvanIwIGDBUTP8IvwDF5RJDQ00i0Vz5P6i"
+                                        panelLabel='Payment'
+                                        currency='USD'
+                                        amount={order.totalPrice*100}
+                                />
+                            }
                             </Col>
 
 

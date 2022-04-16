@@ -1,8 +1,14 @@
 import express from 'express'
+import Stripe from 'stripe'
 import Order from '../models/orderModel.js'
 import {isAuth} from '../utils.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 const orderRouter = express.Router()
+
+const stripe = new Stripe(process.env.STRIP_CLIENT || "",null)
 
 orderRouter.post('/',isAuth,async (req,res)=>{
     const newOrder = new Order({
@@ -44,6 +50,48 @@ orderRouter.put('/:id/pay',isAuth,async (req,res)=>{
     }else{
         res.status(404).send({msg: "Order Not Found"})
     }
+
+})
+
+orderRouter.post('/:id/payment',isAuth, async function(req,res){
+    const {token = {},amount = 0} = req.body
+
+
+    if(!Object.keys(token).length || !amount){
+        res.status(400).send({msg: "Order Not Found"})
+    }
+
+    const {id: customerId} = await stripe.customer.create({
+        email: token.email,
+        source: token.id
+
+    }).catch(e=>{
+        console.log(e)
+        return null
+    })
+
+    const invoiceId = `${token.email}-${Math.random().toString()}-${Date.now().toString()}`
+
+    const charge = await stripe.ChargesResource.create({
+        amount: amount*100,
+        currency: "USD",
+        customer: customerId,
+        receipt_email: token.email,
+        description: "Dvaly Payment"
+
+    },{
+        idempotencyKey: invoiceId
+    }).catch(e=>{
+        console.log(e)
+        return null
+    })
+
+    if(!charge){
+        res.status(500).send({msg: "Order Not Found"})
+    }
+
+    res.status(201).send({msg: "Oder Paid"})
+
 
 })
 
