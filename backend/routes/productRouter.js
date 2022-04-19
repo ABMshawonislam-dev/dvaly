@@ -10,6 +10,7 @@ productRouter.get('/',async (req,res)=>{
     res.send(products)
 })
 
+
 productRouter.get('/:slug', async (req, res) => {
 
     let product =  await Product.findOne({slug:req.params.slug})

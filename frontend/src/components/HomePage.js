@@ -9,6 +9,7 @@ const HomePage = () => {
   const [discountimg, setDiscountimg] = useState(false);
   const [category, setCategory] = useState([]);
   const [categoryproduct, setCategoryproduct] = useState([]);
+  const [pakna, setPakna] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -25,16 +26,22 @@ const HomePage = () => {
     product.data.map((item)=>{
       if(catarr.indexOf(item.category) == -1){
         catarr.push(item.category)
+
       }
     })
     setCategory(catarr)
    
   },[])
 
+
+
+
+
+
   let handleCategory = async (category)=>{
     let categoryproduct = await axios.get(`/category/${category}`)
     setCategoryproduct(categoryproduct.data)
-    console.log(categoryproduct.data)
+    
   }
 
   return (
@@ -50,9 +57,10 @@ const HomePage = () => {
       <div className="cat-container">
           <div className="cat">
               <ListGroup>
-                {category.map(item=>(
-                  <ListGroup.Item onClick={()=>handleCategory(item)}>{item}</ListGroup.Item>
+                {category.map((item,index)=>(
+                  <ListGroup.Item onClick={()=>handleCategory(item)}>{item}{pakna[index]}</ListGroup.Item>
                 ))}
+              
                   
                   
               </ListGroup>

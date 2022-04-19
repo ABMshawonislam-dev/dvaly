@@ -94,7 +94,7 @@ const Placeorder = () => {
                 navigate(`/orders/${data.order._id}`)
             }catch(err){
                 dispatch({type: 'CREATE_FAIL'})
-                toast.error(err)
+                toast.error(err.message)
             }
     }
 
