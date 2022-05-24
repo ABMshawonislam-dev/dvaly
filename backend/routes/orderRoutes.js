@@ -10,6 +10,7 @@ const orderRouter = express.Router()
 
 const stripe = new Stripe(process.env.STRIP_CLIENT || "",null)
 
+    
 orderRouter.post('/',isAuth,async (req,res)=>{
     const newOrder = new Order({
         orderItems: req.body.orderItems.map((p)=> ({...p,product: p._id})),
@@ -18,15 +19,17 @@ orderRouter.post('/',isAuth,async (req,res)=>{
         productPrice: req.body.productPrice,
         taxPrice: req.body.taxPrice,
         totalPrice: req.body.totalPrice,
-        user: req.user._id
+        user: req.body.user
     })
 
     const order = await newOrder.save()
     res.status(201).send({msg:"New Order Created",order})
 })
 
-orderRouter.get('/mine',isAuth,async (req,res)=>{
-    const orders = await Order.find({user: req.user._id})
+orderRouter.get('/mine/:id',isAuth,async (req,res)=>{
+    console.log("ami order theke aseci")
+    console.log(req.params)
+    const orders = await Order.find({user: req.params.id})
 
     res.send(orders)
    

@@ -21,6 +21,7 @@ import Payment from './components/Payment';
 import Placeorder from './components/Placeorder';
 import Order from './components/Order';
 import MyOrder from './components/MyOrder';
+import Dashboard from './components/Dashboard'
 function App() {
 
   const [show, setShow] = useState(false);
@@ -85,7 +86,8 @@ function App() {
            
       {userInfo ?
            <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+              <Link className="item" to="/dashboard">Dashboard</Link>
+           
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">My Orders</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -208,6 +210,7 @@ function App() {
         <Route path="/placeorder" element={<Placeorder/>}></Route>
         <Route path="/orders/:id" element={<Order/>}></Route>
         <Route path="/myorders" element={<MyOrder/>}></Route>
+        <Route path="/dashboard" element={<Dashboard/>}></Route>
       </Routes>
     </BrowserRouter>
 

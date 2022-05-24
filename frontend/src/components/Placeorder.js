@@ -77,9 +77,9 @@ const Placeorder = () => {
                         shippingaddress: state4.shippingaddress,
                         paymentMethod: state5.paymentMethod,
                         productPrice: total,
-                        shippingPrice: 0,
                         taxPrice: total<500?0:(total*5)/100,
-                        totalPrice: total+(total<500?0:(total*5)/100)+0
+                        totalPrice: total+(total<500?0:(total*5)/100)+0,
+                        user: userInfo._id
                     },
                     {
                         headers:{
