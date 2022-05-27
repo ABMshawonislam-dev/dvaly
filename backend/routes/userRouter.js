@@ -16,6 +16,7 @@ userRouter.post('/signin',async (req, res) => {
                 name: user.name,
                 email: user.email,
                 idAdmin: user.isAdmin,
+                isVendor: user.isVendor,
                 token: generateToken(user)
             })
             return
@@ -41,6 +42,17 @@ userRouter.post('/signin',async (req, res) => {
         email: user.email,
         idAdmin: user.isAdmin,
         token: generateToken(user)
+    })
+   
+  })
+
+  userRouter.put('/:id',async (req, res) => {
+    User.findByIdAndUpdate(req.params.id,{isVendor: true},{new: true},function(err,docs){
+        if(err){
+            console.log(err)
+        }else{
+            res.send(docs)
+        }
     })
    
   })

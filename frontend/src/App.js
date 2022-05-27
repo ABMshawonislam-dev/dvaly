@@ -22,6 +22,7 @@ import Placeorder from './components/Placeorder';
 import Order from './components/Order';
 import MyOrder from './components/MyOrder';
 import Dashboard from './components/Dashboard'
+import Vendor from './components/Vendor';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -86,8 +87,22 @@ function App() {
            
       {userInfo ?
            <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
-              <Link className="item" to="/dashboard">Dashboard</Link>
+              
+              
+           {userInfo.isVendor
+           ? 
+           <NavDropdown.Item href="#action/3.2">
+                <Link className="item" to="/dashboard">Dashboard</Link>
+              </NavDropdown.Item>
+              
            
+           :
+           <NavDropdown.Item href="#action/3.2">
+           <Link className="item" to="/vendor">Become A Vendor</Link>
+         </NavDropdown.Item>
+           }
+              
+              
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">My Orders</NavDropdown.Item>
               <NavDropdown.Divider />
@@ -211,6 +226,7 @@ function App() {
         <Route path="/orders/:id" element={<Order/>}></Route>
         <Route path="/myorders" element={<MyOrder/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
+        <Route path="/Vendor" element={<Vendor/>}></Route>
       </Routes>
     </BrowserRouter>
 
