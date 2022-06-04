@@ -186,7 +186,7 @@ const ProductDetails = () => {
          }
          <h4>${product.price}</h4>
        </ListGroup.Item>
-       <ListGroup.Item>{product.description}</ListGroup.Item>
+       <ListGroup.Item dangerouslySetInnerHTML={{__html: product.description}}></ListGroup.Item>
      </ListGroup>
    </Card>
     </Col>

@@ -114,3 +114,9 @@ a{
   display: inline-block;
   margin-bottom: 20px;
 }
+
+.rdw-editor-wrapper {
+  box-sizing: content-box;
+  border: 1px solid #EEE;
+  /* height: 312px; */
+}

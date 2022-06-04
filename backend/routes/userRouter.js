@@ -1,5 +1,6 @@
 import express from "express"
 import User from "../models/userModel.js"
+import VirtualCard from "../models/virtualCard.js"
 import bcrypt from "bcryptjs"
 import { generateToken } from "../utils.js"
 
@@ -55,6 +56,38 @@ userRouter.post('/signin',async (req, res) => {
         }
     })
    
+  })
+
+  userRouter.post('/virtualcard',(req,res)=>{
+      console.log(req.body)
+      let virtualcardInfo = {
+          amount: req.body.amount,
+          owner: req.body.owner
+      }
+
+      const virtualcard = new VirtualCard(virtualcardInfo)
+      virtualcard.save()
+      res.send("done")
+  })
+
+  userRouter.post('/virtualcardpayment',async (req,res)=>{
+      console.log(req.body)
+      const data = await VirtualCard.find({owner: req.body.owner})
+      console.log(data[0].amount)
+      if(data[0].amount < req.body.price){
+          console.log("Amount is not Less than product price")
+      }else{
+          console.log("data.amount - req.body.amount")
+          console.log(data[0].amount - req.body.price)
+          VirtualCard.findByIdAndUpdate(data[0]._id,{amount:data[0].amount - req.body.price},{new: true},function(err,docs){
+              if(err){
+                  console.log(err)
+              }else{
+                  console.log(docs)
+              }
+          })
+      }
+      
   })
 
   export default userRouter

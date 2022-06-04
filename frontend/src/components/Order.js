@@ -160,6 +160,16 @@ function onError(err){
 
     }
 
+
+    let handleVirtualCard = async ()=>{
+        let {data} = await axios.post('/api/users/virtualcardpayment',{
+            owner: userInfo._id,
+            price: order.totalPrice
+        })
+
+        console.log(data)
+    }
+
   return (
         loading
             ?
@@ -262,6 +272,7 @@ function onError(err){
                                         amount={order.totalPrice*100}
                                 />
                             }
+                            <Button onClick={handleVirtualCard}> Use Virtual Card </Button>
                             </Col>
 
 

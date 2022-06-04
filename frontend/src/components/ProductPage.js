@@ -129,7 +129,8 @@ const ProductPage = () => {
                 <Card.Text>
                 
                 <Rating rating={item.rating} numberofrating={item.numberofrating}/>
-                 {item.description}
+                <div dangerouslySetInnerHTML={{__html: item.description}}></div>
+           
                 </Card.Text>
                 <Card.Text>
                  {item.price}$

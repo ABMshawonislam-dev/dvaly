@@ -23,6 +23,7 @@ import Order from './components/Order';
 import MyOrder from './components/MyOrder';
 import Dashboard from './components/Dashboard'
 import Vendor from './components/Vendor';
+import VertualCard from './components/VertualCard';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -99,11 +100,14 @@ function App() {
            :
            <NavDropdown.Item href="#action/3.2">
            <Link className="item" to="/vendor">Become A Vendor</Link>
+           
          </NavDropdown.Item>
            }
               
               
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+              <NavDropdown.Item href="#action/3.2">
+                <Link className="item" to="/virtualcard">Get A Vitual Card</Link>  
+              </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">My Orders</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
@@ -227,6 +231,7 @@ function App() {
         <Route path="/myorders" element={<MyOrder/>}></Route>
         <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/Vendor" element={<Vendor/>}></Route>
+        <Route path="/virtualcard" element={<VertualCard/>}></Route>
       </Routes>
     </BrowserRouter>
 
