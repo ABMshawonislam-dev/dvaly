@@ -30,6 +30,7 @@ const Login = () => {
                 email,
                 password
             })
+            console.log(data)
             dispatch3({type: 'USER_SIGNIN',payload:data })
             localStorage.setItem('userInfo',JSON.stringify(data))
             navigate(redirect || "/")

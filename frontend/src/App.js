@@ -24,6 +24,8 @@ import MyOrder from './components/MyOrder';
 import Dashboard from './components/Dashboard'
 import Vendor from './components/Vendor';
 import VertualCard from './components/VertualCard';
+import Affiliate from './components/Affiliate';
+import AffiliateLink from './components/AffiliateLink';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -109,6 +111,17 @@ function App() {
                 <Link className="item" to="/virtualcard">Get A Vitual Card</Link>  
               </NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">My Orders</NavDropdown.Item>
+              <NavDropdown.Divider />
+              {userInfo.isAffiliate 
+                ?
+              <NavDropdown.Item href="#action/3.3">
+                <Link className="item" to="/affiliatelink">Get Affiliat Link</Link>  
+              </NavDropdown.Item>
+                :
+              <NavDropdown.Item href="#action/3.3">
+               <Link className="item" to="/affiliate">Become a Affiliate</Link>  
+              </NavDropdown.Item>
+              }
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
            
@@ -232,6 +245,8 @@ function App() {
         <Route path="/dashboard" element={<Dashboard/>}></Route>
         <Route path="/Vendor" element={<Vendor/>}></Route>
         <Route path="/virtualcard" element={<VertualCard/>}></Route>
+        <Route path="/affiliate" element={<Affiliate/>}></Route>
+        <Route path="/affiliatelink" element={<AffiliateLink/>}></Route>
       </Routes>
     </BrowserRouter>
 

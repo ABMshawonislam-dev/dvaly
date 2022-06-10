@@ -35,6 +35,7 @@ productRouter.get('/',async (req,res)=>{
 
 
 productRouter.get('/:slug', async (req, res) => {
+    console.log(req.query.name)
 
     let product =  await Product.findOne({slug:req.params.slug})
     if(product){

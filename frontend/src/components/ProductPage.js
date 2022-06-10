@@ -49,7 +49,7 @@ const ProductPage = () => {
     setDetails(productDetails.data)
   }
 
-  const {state, dispatch: ctxDispatch,state2,dispatch2} = useContext(Store)
+  const {state, dispatch: ctxDispatch,state2,dispatch2,state3} = useContext(Store)
     const {cart,wishlist} = state
     let handleAddToCart = async(product)=>{
       
@@ -124,7 +124,13 @@ const ProductPage = () => {
               <Card.Img variant="top" src={item.img} />
               <Card.Body>
                 <Card.Title>
-                    <Link to={`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
+                  {state3.userInfo
+                  ?
+                  <Link to={state3.userInfo.isAffiliate?`/products/${item.slug}?name:${state3.userInfo.name}`:`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
+                  :
+                  <Link to={`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
+                  }
+                    
                 </Card.Title>
                 <Card.Text>
                 

@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
     isVendor: {
         type: Boolean,
         default: false,
+    },
+    isAffiliate: {
+        type: Boolean,
+        default: false,
     }
 
 })

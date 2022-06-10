@@ -7,7 +7,7 @@ import Rating from './Rating';
 import 'react-inner-image-zoom/lib/InnerImageZoom/styles.min.css';
 import InnerImageZoom from 'react-inner-image-zoom';
 import {Store} from '../Store'
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useSearchParams } from "react-router-dom";
 import Slider from "react-slick";
 import { FaArrowLeft,FaArrowRight } from "react-icons/fa";
 
@@ -33,7 +33,7 @@ function reducer(state, action) {
 
 
 const ProductDetails = () => {
-  
+  const {state3} = useContext(Store)
 // slider settings
   var settings = {
     dots: false,
@@ -48,6 +48,8 @@ const ProductDetails = () => {
 
 
   let navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  console.log(searchParams.get('sort'))
     let params = useParams();
 
     let [relatedproduct,setRelatedproduct] = useState([])
@@ -61,9 +63,18 @@ const ProductDetails = () => {
       product: {}
     })
     useEffect( async ()=>{
+      let nam;
+      if(state3.userInfo){
+        if(state3.userInfo.isAffiliate){
+          nam = state3.userInfo.name
+        }
+      }
+      
       dispatch({type:'FETCH_REQUEST'})
       try{
-        let product = await axios.get(`/products/${params.slug}`)
+        
+        // let product = await axios.get(`/products/${params.slug}?name=shawon`)
+        let product = await axios.get(`/products/${params.slug}?name=${nam}`)
         dispatch({type:'FETCH_SUCCESS',payload:product.data})
         let relatedProduct = await axios.get("/products")
         let filterItem = relatedProduct.data.filter((item)=> item.category == product.data.category && item.name !== product.data.name)

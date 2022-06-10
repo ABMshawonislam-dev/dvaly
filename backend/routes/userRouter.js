@@ -18,6 +18,7 @@ userRouter.post('/signin',async (req, res) => {
                 email: user.email,
                 idAdmin: user.isAdmin,
                 isVendor: user.isVendor,
+                isAffiliate: user.isAffiliate,
                 token: generateToken(user)
             })
             return
@@ -88,6 +89,18 @@ userRouter.post('/signin',async (req, res) => {
           })
       }
       
+  })
+
+  userRouter.put('/affiliate/:id',async (req, res) => {
+    console.log(req.params)
+    User.findByIdAndUpdate(req.params.id,{isAffiliate: true},{new: true},function(err,docs){
+        if(err){
+            console.log(err)
+        }else{
+            res.send(docs)
+        }
+    })
+   
   })
 
   export default userRouter
