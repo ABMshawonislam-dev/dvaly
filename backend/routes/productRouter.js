@@ -1,6 +1,8 @@
 import express from 'express'
 
 import Product from '../models/productModel.js'
+import User from '../models/userModel.js'
+import Affiliate from '../models/affiliateModel.js'
 import Storename from '../models/storeModel.js'
 
 
@@ -35,17 +37,48 @@ productRouter.get('/',async (req,res)=>{
 
 
 productRouter.get('/:slug', async (req, res) => {
-    console.log(req.query.name)
+    // console.log(req.query.id)
+    if(req.query.id){
+        console.log("ki re")
+        let user = await User.findById(req.query.id)
+        console.log(user)
+        if(user.isAffiliate){
+            let product =  await Product.findOne({slug:req.params.slug})
+            if(product){
+                res.send(product)
+                let affiliateInfo = {
+                    amount: (product.price*10)/100,
+                    owner: req.query.id
+                }
+        
+                const affiliate = new Affiliate(affiliateInfo)
+                affiliate.save()
+            }else{
+                res.status(404).send({msg:'Product Not Found'})
+            }
+            
+    
+        }
+    } else{
+        let product =  await Product.findOne({slug:req.params.slug})
+        if(product){
+            res.send(product)
 
-    let product =  await Product.findOne({slug:req.params.slug})
-    if(product){
-        res.send(product)
-
-    }else{
-        res.status(404).send({msg:'Product Not Found'})
+        }else{
+            res.status(404).send({msg:'Product Not Found'})
+        }
     }
+
+    
   
   })
+
+  productRouter.get('/affiliate/info/:id',async (req,res)=>{
+    console.log(req.params.id)
+        let data = await Affiliate.find({owner: req.params.id})
+        console.log(data)
+        res.send(data)
+  })    
 
 productRouter.post('/storename', async (req, res) => {
         console.log(req.body)

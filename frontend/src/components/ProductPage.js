@@ -126,7 +126,7 @@ const ProductPage = () => {
                 <Card.Title>
                   {state3.userInfo
                   ?
-                  <Link to={state3.userInfo.isAffiliate?`/products/${item.slug}?name:${state3.userInfo.name}`:`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
+                  <Link to={state3.userInfo.isAffiliate?`/products/${item.slug}?id:${state3.userInfo._id}`:`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
                   :
                   <Link to={`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
                   }

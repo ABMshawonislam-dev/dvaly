@@ -26,6 +26,9 @@ import Vendor from './components/Vendor';
 import VertualCard from './components/VertualCard';
 import Affiliate from './components/Affiliate';
 import AffiliateLink from './components/AffiliateLink';
+import AdminDashboard from './components/AdminDashboard';
+import AdminUserList from './components/AdminUserList';
+import RoleManagement from './components/RoleManagement';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -42,7 +45,7 @@ function App() {
 
   const {userInfo} = state3
 
-  console.log(userInfo)
+
  
 
   let upadateCart = (item,quantity)=>{
@@ -85,6 +88,7 @@ function App() {
         <Navbar.Brand href="#home">Dvaly</Navbar.Brand>
         <Nav className="ms-auto menu">
           <Link className="item" to="/">Home</Link>
+          
           <Link className="item" to="/products">Products</Link>
           <Link className="item" to="/compare">Compare Products</Link>
            
@@ -115,12 +119,19 @@ function App() {
               {userInfo.isAffiliate 
                 ?
               <NavDropdown.Item href="#action/3.3">
-                <Link className="item" to="/affiliatelink">Get Affiliat Link</Link>  
+                <Link className="item" to="/affiliatelink">Get Affiliat Info</Link>  
               </NavDropdown.Item>
                 :
               <NavDropdown.Item href="#action/3.3">
                <Link className="item" to="/affiliate">Become a Affiliate</Link>  
               </NavDropdown.Item>
+              }
+              {userInfo.idAdmin &&
+                <NavDropdown.Item href="#action/3.3">
+                     <Link className="item" to="/admin">Admin Dashboard</Link>
+                </NavDropdown.Item>
+                
+                
               }
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4" onClick={handleLogout}>Logout</NavDropdown.Item>
@@ -247,6 +258,9 @@ function App() {
         <Route path="/virtualcard" element={<VertualCard/>}></Route>
         <Route path="/affiliate" element={<Affiliate/>}></Route>
         <Route path="/affiliatelink" element={<AffiliateLink/>}></Route>
+        <Route path="/admin" element={<AdminDashboard/>}></Route>
+        <Route path="/adminuserlist" element={<AdminUserList/>}></Route>
+        <Route path="/rolemanagement" element={<RoleManagement/>}></Route>
       </Routes>
     </BrowserRouter>
 

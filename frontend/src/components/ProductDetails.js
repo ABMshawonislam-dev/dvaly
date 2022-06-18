@@ -66,7 +66,7 @@ const ProductDetails = () => {
       let nam;
       if(state3.userInfo){
         if(state3.userInfo.isAffiliate){
-          nam = state3.userInfo.name
+          nam = state3.userInfo._id
         }
       }
       
@@ -74,7 +74,7 @@ const ProductDetails = () => {
       try{
         
         // let product = await axios.get(`/products/${params.slug}?name=shawon`)
-        let product = await axios.get(`/products/${params.slug}?name=${nam}`)
+        let product = await axios.get(`/products/${params.slug}?id=${nam}`)
         dispatch({type:'FETCH_SUCCESS',payload:product.data})
         let relatedProduct = await axios.get("/products")
         let filterItem = relatedProduct.data.filter((item)=> item.category == product.data.category && item.name !== product.data.name)
@@ -231,6 +231,14 @@ const ProductDetails = () => {
      </Row>
 
      <Row>
+     <Form.Select aria-label="Rate This Product">
+      <option>Rate This Product</option>
+      <option value="1">1 Star</option>
+      <option value="2">2 Star</option>
+      <option value="3">3 Star</option>
+      <option value="4">4 Star</option>
+      <option value="5">5 Star</option>
+    </Form.Select>
        <h2 className='mt-5'>Related Product</h2>
        {relatedproduct.length > 0
         ?
