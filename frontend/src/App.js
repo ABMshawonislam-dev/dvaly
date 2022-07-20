@@ -29,6 +29,7 @@ import AffiliateLink from './components/AffiliateLink';
 import AdminDashboard from './components/AdminDashboard';
 import AdminUserList from './components/AdminUserList';
 import RoleManagement from './components/RoleManagement';
+import AdminSignIn from './components/AdminSignIn';
 function App() {
 
   const [show, setShow] = useState(false);
@@ -261,11 +262,9 @@ function App() {
         <Route path="/admin" element={<AdminDashboard/>}></Route>
         <Route path="/adminuserlist" element={<AdminUserList/>}></Route>
         <Route path="/rolemanagement" element={<RoleManagement/>}></Route>
+        <Route path="/adminsignin" element={<AdminSignIn/>}></Route>
       </Routes>
     </BrowserRouter>
-
-     
-  
     </>
   );
 }

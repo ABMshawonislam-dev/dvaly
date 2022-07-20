@@ -1,6 +1,8 @@
 import express from "express"
 import User from "../models/userModel.js"
 import VirtualCard from "../models/virtualCard.js"
+import UserRole from "../models/userRole.js"
+import AdminRole from "../models/adminRoleModel.js"
 import bcrypt from "bcryptjs"
 import { generateToken } from "../utils.js"
 
@@ -108,5 +110,52 @@ userRouter.post('/signin',async (req, res) => {
     })
    
   })
+
+  userRouter.post('/userrole',(req,res)=>{
+    console.log(req.body)
+
+    let userRoleInfo = {
+        name: req.body.name,
+        permissions: req.body.permissions,
+    }
+
+    const userRole = new UserRole(userRoleInfo)
+    userRole.save()
+    res.send(userRole)
+
+  })
+
+  userRouter.get('/userrole',async (req,res)=>{
+        let data = await UserRole.find({})
+        res.send(data)
+  })
+
+  userRouter.post('/role',(req,res)=>{
+        let roleinfo = {
+            email: req.body.email,
+            password: req.body.password,
+            role: req.body.role
+        }
+
+        let role = new AdminRole(roleinfo)
+        role.save()
+        res.send(role)
+  })
+
+  userRouter.post('/adminsignin',async(req,res)=>{
+    let user = await AdminRole.find({email:req.body.email})
+    console.log(user)
+
+    if(user){
+        if(user[0].password == req.body.password){
+            res.send(user)
+        }else{
+            res.send({msg:'password not match'})
+        }
+    }else{
+        res.send({msg:'user not found'})
+
+    }
+  }) 
 
   export default userRouter
