@@ -30,10 +30,14 @@ productRouter.get('/',async (req,res)=>{
     res.send(products)
 })
 
-// productRouter.get('/cat',async (req,res)=>{
-//     const products = await category.find()
-//     res.send(products)
-// })
+productRouter.get('/productsearch/:search',async (req,res)=>{
+    // console.log('without spread',req.params.search)
+    // console.log("spread",...req.params.search)
+    // let abc = [...req.params.search]
+    // console.log(abc)
+    const products = await Product.find({name:'Shirt2'})
+    console.log(products)
+})
 
 
 productRouter.get('/:slug', async (req, res) => {

@@ -10,12 +10,14 @@ const HomePage = () => {
   const [category, setCategory] = useState([]);
   const [categoryproduct, setCategoryproduct] = useState([]);
   const [pakna, setPakna] = useState([]);
+  const [pric, setPric] = useState([]);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
 
   let catarr = []
+  let price = []
   useEffect(async()=>{
     // const {data} = await axios.get(`/discount`)
     // setDiscountimg(data.img)
@@ -26,10 +28,12 @@ const HomePage = () => {
     product.data.map((item)=>{
       if(catarr.indexOf(item.category) == -1){
         catarr.push(item.category)
+        price.push(item.price)
 
       }
     })
     setCategory(catarr)
+    setPric(price)
    
   },[])
 
@@ -58,6 +62,14 @@ const HomePage = () => {
           <div className="cat">
               <ListGroup>
                 {category.map((item,index)=>(
+                  <ListGroup.Item onClick={()=>handleCategory(item)}>{item}{pakna[index]}</ListGroup.Item>
+                ))}
+              
+                  
+                  
+              </ListGroup>
+              <ListGroup>
+                {pric.map((item,index)=>(
                   <ListGroup.Item onClick={()=>handleCategory(item)}>{item}{pakna[index]}</ListGroup.Item>
                 ))}
               

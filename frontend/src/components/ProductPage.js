@@ -5,6 +5,7 @@ import {Container,Row,Col,Card, Button,Spinner,Modal,Badge,Form} from 'react-boo
 import Rating from './Rating';
 import { Helmet } from 'react-helmet-async';
 import {Store} from '../Store'
+import Pagination from './Pagination';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -35,8 +36,8 @@ const ProductPage = () => {
   useEffect( async ()=>{
     dispatch({type:'FETCH_REQUEST'})
     try{
-      let product = await axios.get("/products")
-      dispatch({type:'FETCH_SUCCESS',payload:product.data})
+      let products = await axios.get("/products")
+      dispatch({type:'FETCH_SUCCESS',payload:products.data})
     }catch(err){
       dispatch({type:'FETCH_FAILS',payload:err.message})
     }
@@ -105,78 +106,22 @@ const ProductPage = () => {
       setSearchmatch(matchArr)
     }
 
+    let handleSearch = async (e) => {
+      console.log(e.target.value)
+
+      let {data} = await axios.get(`/products/productsearch/${e.target.value}`)
+      console.log(data)
+    }
+
   return (
       <>
          <Container>
          <Helmet>
            <title>Product Page</title>
          </Helmet>
+        <input onChange={handleSearch}/>
         <Row>
-       
-          {loading?
-            <div className='loading'>
-              <Spinner animation="border" />
-            </div>
-          :
-          product.map(item=>(
-            <Col lg={3}>
-            <Card>
-              <Card.Img variant="top" src={item.img} />
-              <Card.Body>
-                <Card.Title>
-                  {state3.userInfo
-                  ?
-                  <Link to={state3.userInfo.isAffiliate?`/products/${item.slug}?id:${state3.userInfo._id}`:`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
-                  :
-                  <Link to={`/products/${item.slug}`}>{item.name} {item.totalSale > 50 ?<Badge bg="warning">Best Seller</Badge>:""}</Link>
-                  }
-                    
-                </Card.Title>
-                <Card.Text>
-                
-                <Rating rating={item.rating} numberofrating={item.numberofrating}/>
-                <div dangerouslySetInnerHTML={{__html: item.description}}></div>
-           
-                </Card.Text>
-                <Card.Text>
-                 {item.price}$
-                </Card.Text>
-              </Card.Body>
-              <Card.Body>
-                {/* {cartItems.map(items=>(
-                    item._id == items._id 
-                      ?
-                      <>
-                      <Button onClick={()=>upadateCart(item,items.quantity+1)}  disabled={items.quantity == item.instock} variant="success">+</Button>
-                      <span>{items.quantity}</span>
-                      <Button onClick={()=>upadateCart(item,items.quantity-1)} disabled={items.quantity === 1} variant="success">-</Button>
-                      <Button className='ms-2' onClick={()=>handleRemoveItem(item)} variant="danger">Remove form Cart</Button>
-                      </>
-                      :
-                      ""
-                    
-
-                ))} */}
-              <br/>
-              {item.instock == 0 
-                ?
-                <>
-                  <Button variant="danger">Out Of Stock</Button>
-                <Button className='mt-3' onClick={()=>handleDetails(item.slug)}>Details</Button>
-                <Button className='mt-3' onClick={()=>handleAddToWishlist(item)}>Wishlist</Button>
-                  
-                </>
-                :
-               <>
-                 <Button className='mt-3 me-2' onClick={()=>handleAddToCart(item)}  variant="primary">Add to cart</Button>
-                <Button className='mt-3' onClick={()=>handleDetails(item.slug)}>Details</Button>
-                <Button className='mt-3' onClick={()=>handleAddToWishlist(item)}>Wishlist</Button>
-               </>
-              }
-              </Card.Body>
-            </Card>
-            </Col>
-          ))}
+        <Pagination itemsPerPage={3} product={product} state3={state3} handleDetails={handleDetails} handleAddToCart={handleAddToCart} handleAddToWishlist={handleAddToWishlist}/>
         </Row>
         <Modal
         size="lg"
@@ -218,6 +163,7 @@ const ProductPage = () => {
         }
         </Modal.Body>
       </Modal>
+   
       </Container>
       </>
   );
