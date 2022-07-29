@@ -7,7 +7,18 @@ import seedRouter from './routes/seedRoutes.js'
 import productRouter from './routes/productRouter.js'
 import userRouter from './routes/userRouter.js'
 import orderRoutes from './routes/orderRoutes.js'
+import Image from './models/imageUpload.js'
 const app = express()
+import fs from 'fs'
+import path from 'path'
+import multer from 'multer'
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+
+
+const __dirname = path.dirname(__filename);
+
 
 dotenv.config()
 
@@ -19,6 +30,34 @@ mongoose.connect(process.env.MONGODB_URL).then(()=>{
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+app.post('/imageupload', upload.single('avatar'), function (req, res, next) {
+  let imgInfo = {
+    image:fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename))
+  }
+
+  let img = new Image(imgInfo)
+  img.save()
+  
+
+  
+})
+
+app.get('/imageupload',async (req,res)=>{
+    let data = await Image.find({})
+    res.send(data)
+})
 
 app.get('/api/keys/paypal',(req,res)=>{
   res.send(process.env.PAYPAL_CLIENT || "sb")

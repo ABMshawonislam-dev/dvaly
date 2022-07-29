@@ -8,6 +8,8 @@ import Storename from '../models/storeModel.js'
 
 const productRouter = express.Router()
 
+
+
 productRouter.post('/',(req,res)=>{
     console.log(req.body)
     let productInfo = {
